@@ -1,0 +1,16 @@
+@import "../abstracts/variables";
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+.header-bottom-class {
+  height: 132px;
+  background-color: $blue-bg;
+  opacity: .85;
+  
+  .title {
+    padding: 25px ;
+    color: white;
+    font-size: 31.5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Bubblegum Sans';
+  }
+}

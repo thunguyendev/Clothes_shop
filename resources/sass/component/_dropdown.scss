@@ -1,0 +1,29 @@
+@import '../abstracts/variables';
+
+.dropdown-menu{
+    width: 200px;
+    position: absolute;
+    top: 80px;
+    list-style: none;
+    text-align: start;
+    li{
+        background-color: #ffff;
+        cursor: pointer;
+        &:hover{
+            background:$link-hover-color;
+        }
+    }
+    .clicked{
+        display:none;
+    }
+}
+
+
+.dropdown-link{
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: #fff;
+    padding: 16px;
+}
+

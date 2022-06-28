@@ -1,0 +1,47 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+@import url("https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap");
+.footer-class {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  width: 100%;
+
+  // background-image: url("https://cdn.shopify.com/s/files/1/0652/0011/files/footer_bg_4265dbe6-2d3e-40fd-8523-15e18d373869.png?v=1553249241");
+  background-color: white;
+  font-size: 14px;
+  .all-items {
+    // margin: 0px 80px;
+    .footer-item {
+      line-height: normal;
+      .footer-content {
+        padding-top: 30px;
+      }
+      .footer-title {
+        font-size: 24px;
+        font-family: "Bubblegum Sans";
+      }
+      .contact-icon {
+        color: $primary-color;
+      }
+      .dt-sc-divider {
+        ul {
+          list-style: none;
+        }
+        li {
+          &::before {
+            content: "✓";
+            font-weight: 700;
+            @include textHoverOpposite();
+          }
+          .links {
+            text-decoration: none;
+            list-style-type: none;
+            @include textHoverOpposite();
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@import "../abstracts/variables";
+@import "../abstracts/mixins";
+
+.product-card-item {
+  height: 50%;
+  margin: 20px;
+  float: left;
+
+  background-color: #dce1e0;
+
+  .product-container {
+    position: relative;
+    height: 300px;
+
+    &:hover {
+      .bg-hover {
+        display: block;
+      }
+      .product-img {
+        content: url("https://cdn.shopify.com/s/files/1/0652/0011/products/product3_600x.jpg?v=1554267369");
+      }
+    }
+    .product-img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .bg-hover {
+      display: none;
+      .add-cart-btn {
+        z-index: 1;
+        padding: 10px;
+        color: #fff;
+        border: 2px solid #fff;
+        background-color: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+        background-color: transparent;
+        &:hover {
+          background-color: $primary-color;
+        }
+      }
+      .img-bg-wrap {
+        position: absolute;
+        background-color: $primary-color;
+
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  .product-info {
+    font-size: 14px;
+    padding: 30px;
+
+    .product-name {
+      &:hover {
+        color: $link-hover-color;
+      }
+      color: $text-grey-color;
+      @include displayCenter();
+    }
+    .product-price {
+      color: $primary-color;
+      font-weight: 600;
+      @include displayCenter();
+    }
+  }
+}

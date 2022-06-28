@@ -1,0 +1,21 @@
+@import "./variables";
+
+@mixin textHover {
+  &:hover {
+    color: $link-hover-color;
+  }
+  color: $text-grey-color;
+}
+
+@mixin textHoverOpposite {
+    &:hover {
+      color: $text-grey-color;
+    }
+    color: $link-hover-color;
+  }
+
+@mixin displayCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

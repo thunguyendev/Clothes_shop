@@ -1,0 +1,9 @@
+@import "./abstracts/variables";
+@import "./layout/all";
+@import "./component/all";
+@import './reset.scss';
+
+*body {
+  font-family: $font-body;
+  background-color: $body-bg-color;
+}
