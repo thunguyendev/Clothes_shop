@@ -9,7 +9,7 @@
                     @foreach($data as $cloth)
                         <div class='col l-3 m-6 c-12 product-card-item'>
                             <div class="product-container">
-                            <img class="product-img" src="{{URL::asset('images/wedding_dress.jpg')}}" alt="dress"/>
+                            <img class="product-img" src="{{ url('storage/images/'.$cloth->image) }}" alt="dress"></a>
                                 <div class="bg-hover"> 
                                     <button type="submit" class="add-cart-btn">Add to cart</button>
                                     <div class="img-bg-wrap"></div>

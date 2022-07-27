@@ -130,28 +130,6 @@ public function deleteProduct($_id){
     return response()->json(['success'=>'San pham da duoc xoa']);
 }
 
-
-
-
-
-    /**Edit***** */
-    // public function editCloth(Request $request, $_id)
-    // {
-
-    //     $data = Cloth::findOrFail($_id);
-    //     $data->name = $request->name;
-    //     $data->category = $request->category;
-    //     $data->price = $request->price;
-    //     $data->description = $request->description;
-    //     $data->quantity = $request->quantity;
-    
-    //     if($data->save()){
-    //         return redirect()->route('home');
-    //     }
-    //     return back();
-    //     return view('cloth.editForm', compact(('data')));
-    // }{}
-
     public function delete($_id){
         $data = Cloth::destroy($_id);
         if($data){
@@ -159,6 +137,16 @@ public function deleteProduct($_id){
         }else{
             dd('Error delete this cloth');
         }
+    }
+
+    public function postFile(Request $request){
+        if($request->hasFile('myFile')){
+            $file = $request->file('myFile');
+            $fileName = $file->getClientOriginalName('myFile');
+            $file->move('image/product', $fileName);
+        }else{
+            echo "chua co";
+        }   
     }
     
 }

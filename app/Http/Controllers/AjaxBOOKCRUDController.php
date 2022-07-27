@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cloth;
+use App\Services\UploadService;
 
 class AjaxBOOKCRUDController extends Controller
 {
@@ -16,9 +17,7 @@ class AjaxBOOKCRUDController extends Controller
     public function index()
     {
         $data = Cloth::all();
-        // $data = Cloth::orderBy('id','desc')->paginate(5);
-        
-        return view('cloth.ajax-clothes-crud', compact('data'));
+            return view('cloth.ajax-clothes-crud', compact('data'));
     }
     
 
@@ -30,19 +29,29 @@ class AjaxBOOKCRUDController extends Controller
      */
     public function store(Request $request)
     {
-
-        $clothes   =   Cloth::updateOrCreate(
-                    [
-                        '_id' => $request->id
-                    ],
-                    [
-                        'name' => $request->name, 
-                        'category' => $request->category,
-                        'price' => $request->price,
-                        'description' => $request->description,
-                        'quantity' => $request->quantity,
-                        'image' => $request->image,
-                    ]);
+    
+        if($request->file('image')){
+            $uploadService = new UploadService();
+            $uploadedPath = $uploadService->upload(
+                UploadService::PRODUCT_UPLOAD_PATH.$request->id.'/',
+                $request->file('image')
+            );
+            
+       
+            $clothes   =   Cloth::updateOrCreate(
+                [
+                    '_id' => $request->id
+                ],
+                [
+                    'name' => $request->name, 
+                    'category' => $request->category,
+                    'price' => $request->price,
+                    'description' => $request->description,
+                    'quantity' => $request->quantity,
+                    'image'=> $uploadedPath
+                ]);
+        }
+         
                     
         return response()->json(['success' => true]);
     }
@@ -76,9 +85,5 @@ class AjaxBOOKCRUDController extends Controller
         return response()->json(['success' => true]);
     }
 
-    // public function destroy($_id){
-    //     $product = Cloth::find($_id);
-    //     $product->delete();
-    //     return response()->json(['success'=>'San pham da duoc xoa']);
-    // }
+
 }

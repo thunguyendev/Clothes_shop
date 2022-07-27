@@ -3,7 +3,7 @@
         <ul>
                 <div class="top-box-left">
                     <li class="tel-class">
-                        (00) 000 111 222&nbsp;
+                        (00) 000 111 2226&nbsp;
                         <i class="fa fa-phone" aria-hidden="true"></i>
                     </li>
 

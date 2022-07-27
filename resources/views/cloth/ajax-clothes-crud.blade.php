@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
 </head>
 <body>
 
@@ -31,6 +31,7 @@
                     <th scope="col">Description</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Image</th>
+                   
                 </tr>
                 </thead>
                 <tbody> 
@@ -40,10 +41,11 @@
                     <td>{{$no}}</td>
                     <td>{{$cloth->name}}</td>
                     <td>{{$cloth->category}}</td>
-                    <td>{{$cloth->price}}</td>
+                    <td>{{$cloth->price}}</td>s
                     <td>{{$cloth->description}}</td>
                     <td>{{$cloth->quantity}}</td>
-                    <td>{{$cloth->image}}</td>
+                    <td><img src="public/products/' . $cloth->image . '" width="100" ></td>
+                   
                     <td>
                         <a href="javascript:void(0)" class="btn btn-primary edit" data-id="{{ $cloth->_id }}">Edit</a>
                         <a href="javascript:void(0)" class="btn btn-primary delete" data-id="{{ $cloth->_id }}">Delete</a>
@@ -54,7 +56,7 @@
                 </tbody>
             </table>
             </div>
-    </div>        
+        </div>        
 </div>
 
 
@@ -66,7 +68,8 @@
                     <h4 class="modal-title" id="ajaxClothesModel"></h4>
             </div>
         <div class="modal-body">
-            <form action="javascript:void(0)" id="addEditClothForm" name="addEditClothesForm" class="form-horizontal" method="POST">
+            <form action="javascript:void(0)" id="addEditClothForm" name="addEditClothesForm" class="form-horizontal" method="POST" enctype="multipart/form-data">
+            @csrf  
                 <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">Name</label>
@@ -103,13 +106,14 @@
                 <div class=form-group>
                     <label for="image" class="col-sm-2 control-label" for="image">Image</label>
                     <div class="col-sm-12">
-                    <input type="file" class="form-control" name="image" id="image">
+                    <input type='file' id="image" name='image' class="form-control">
+                  
+                    <div class='alert alert-danger mt-2 d-none text-danger' id="err_file"></div>
                 </div>
                 </div>
 
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary" id="btn-save" value="addNewClothes">Save changes
-                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-save" value="addNewClothes">Save changes</button>
                 </div>
             </form>
             </div>
@@ -120,6 +124,8 @@
         </div>
     </div>
 <!-- end bootstrap model -->
+
+
 <script type="text/javascript">
     $(document).ready(function($){
 
@@ -137,7 +143,7 @@
 
     $('body').on('click', '.edit', function () {
 
-        var id = $(this).data('id');
+        let id = $(this).data('id');
 
         // ajax
         $.ajax({
@@ -164,7 +170,7 @@
 
     $('body').on('click', '.delete', function () {
         if (confirm("Delete Record?") == true) {
-        var id = $(this).data('id');
+        let id = $(this).data('id');
 
         // ajax
         $.ajax({
@@ -181,35 +187,39 @@
 
     $('body').on('click', '#btn-save', function (event) {
 
-            var id = $("#id").val();
-            var name = $('#name').val();
-            var category = $('#category').val();
-            var price = $('#price').val();
-            var description = $('#description').val();
-            var quantity = $('#quantity').val();
-            var image = $('#image').val();
+        let id = $("#id").val();
+        let name = $('#name').val();
+        let category = $('#category').val();
+        let price = $('#price').val();
+        let description = $('#description').val();
+        let quantity = $('#quantity').val();
+        // Get the selected file
+        let image = $('#image')[0].files[0];
 
-            $("#btn-save").html('Please Wait...');
-            $("#btn-save").attr("disabled", true);
+        let $thisBtn = $(this);
+    
+        $thisBtn.html('Please Wait...');
+        $thisBtn.attr("disabled", true);
 
+        let formData = new FormData();
+        formData.append('id', id);
+        formData.append('name', name);
+        formData.append('category', category);
+        formData.append('price', price);
+        formData.append('description', description);
+        formData.append('quantity', quantity);
+        formData.append('image', image);
         // ajax
         $.ajax({
             type:"POST",
             url: "{{ url('add-update-clothes') }}",
-            data: {
-                id: id,
-                name: name,
-                category: category,
-                price: price,
-                description: description,
-                quantity: quantity,
-                image: image,
-            },
-            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function(res){
-                window.location.reload();
-            $("#btn-save").html('Submit');
-            $("#btn-save").attr("disabled", false);
+             
+                $thisBtn.html('Submit');
+                $thisBtn.attr("disabled", false);
             }
         });
 
